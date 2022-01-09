@@ -1,0 +1,140 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: joloto-imageservice
+spec:
+  selector:
+    matchLabels:
+      app: joloto
+      tier: imageservice
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: joloto
+        tier: imageservice
+    spec:
+      containers:
+      - name: joloto-imageservice
+        image: joloto/imageservice
+        ports:
+        - containerPort: 8083
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: imageservice-service
+spec:
+  selector:
+    app: joloto
+    tier: imageservice
+  ports:
+  - protocol: TCP
+    port: 8083
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: joloto-accountservice
+spec:
+  selector:
+    matchLabels:
+      app: joloto
+      tier: accountservice
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: joloto
+        tier: accountservice
+    spec:
+      containers:
+      - name: joloto-accountservice
+        image: joloto/accountservice
+        ports:
+        - containerPort: 8081
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: accountservice-service
+spec:
+  selector:
+    app: joloto
+    tier: accountservice
+  ports:
+  - protocol: TCP
+    port: 8081
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: joloto-marketplaceservice
+spec:
+  selector:
+    matchLabels:
+      app: joloto
+      tier: marketplaceservice
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: joloto
+        tier: marketplaceservice
+    spec:
+      containers:
+      - name: joloto-marketplaceservice
+        image: joloto/marketplaceservice
+        ports:
+        - containerPort: 8082
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: marketplaceservice-service
+spec:
+  selector:
+    app: joloto
+    tier: marketplaceservice
+  ports:
+  - protocol: TCP
+    port: 8082
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: joloto-ui
+spec:
+  selector:
+    matchLabels:
+      app: joloto
+      tier: ui
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: joloto
+        tier: ui
+    spec:
+      containers:
+      - name: joloto-ui
+        image: joloto/ui
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: ui-service
+spec:
+  type: NodePort
+  selector:
+    app: joloto
+  ports:
+    - port: 9099
+      targetPort: 8080
+      nodePort: 30001

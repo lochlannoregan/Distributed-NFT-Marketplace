@@ -1,0 +1,16 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>JOLOTO</groupId>
+  <artifactId>NFT-marketplace</artifactId>
+  <version>0.1</version>
+  <packaging>pom</packaging>
+  
+  <modules>
+    <module>Core</module>
+    <module>AccountService</module>
+    <module>MarketplaceService</module>
+    <module>ImageService</module>
+    <module>UI</module>
+  </modules>
+
+</project>

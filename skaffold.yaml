@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+build:
+  artifacts:
+    - image: joloto/imageservice
+      context: ImageService
+    - image: joloto/accountservice
+      context: AccountService
+    - image: joloto/ui
+      context: UI
+    - image: joloto/marketplaceservice
+      context: MarketplaceService
+deploy:
+  kubectl:
+    manifests:
+    - deployment.yaml

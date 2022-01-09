@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+          crossorigin="anonymous"></script>
+      <title>Collection</title>
+  </head>
+
+  <body>
+
+    <!-- header -->
+    <div th:if="${loggedIn}">
+      <div th:replace="fragments/headerLoggedIn :: headerLoggedIn"></div>
+    </div>
+    <div th:if="${!loggedIn}">
+      <div th:replace="fragments/headerLoggedOut :: headerLoggedOut"></div>
+    </div>
+
+    <!-- content -->
+    <div class="album py-5">
+      <div class="container">
+        <div th:if="${nftList.empty}">
+          <h4>No NFTs In Your Collection</h4>
+          <p>Add some from the account page</p>
+        </div>
+        <div class="row">
+          <div class="col-md-4" th:each="nft : ${nftList}">
+            <div class="card mb-4 shadow-sm p-3">
+              <img th:src="${nft.value.location}" alt="NFT" style="height: 300px; width: 100%; display: block; object-fit: contain;" class="card-img-top pb-1 pt-2">
+              <div class="card-body pt-5">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group align-items-right">
+                    <h4 class="card-text" th:text="${nft.value.title}"></h4>
+                  </div>
+                  <a class="btn btn-sm btn-primary" th:href="'/account?sell=' + ${nft.key}" role="button">Sell</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+</html>
